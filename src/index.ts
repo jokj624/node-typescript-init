@@ -1,18 +1,17 @@
-import express from "express"; // [1]
-const app = express(); // [2]
+import express from "express"; 
+const app = express(); 
 import connectDB from "./Loaders/db";
+import routes from './routes';
 
-// Connect Database
 connectDB();
 
-app.use(express.json()); // [3]
+app.use(express.urlencoded);
+app.use(express.json());  
 
-// Define Routes
-//app.use("/api/users", require("./api/users")); // [4]
-
+app.use(routes);   //라우터 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
+
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "production" ? err : {};
 
@@ -21,7 +20,7 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-app // [5]
+app 
   .listen(5000, () => {
     console.log(`
     ################################################
