@@ -1,16 +1,14 @@
-import mongoose from "mongoose";
-import config from "../config"; 
+import mongoose from 'mongoose';
+import config from '../config';
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(config.mongoURI, {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(config.mongoURI);
 
-    console.log("Mongoose Connected ...");
-  } catch (err) {
+    mongoose.set('autoCreate', true);
+
+    console.log('Mongoose Connected ...');
+  } catch (err: any) {
     console.error(err.message);
     process.exit(1);
   }
